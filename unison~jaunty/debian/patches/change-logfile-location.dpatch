@@ -1,0 +1,37 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## change-logfile-location.dpatch by  Gergely Imreh <imrehg@gmail.com>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Change logfile location
+## DP: by prepending .unison to name of logfile in  ubase/trace.ml
+
+@DPATCH@
+diff -urNad unison-2.32.52~/strings.ml unison-2.32.52/strings.ml
+--- unison-2.32.52~/strings.ml
++++ unison-2.32.52/strings.ml
+@@ -1518,7 +1518,7 @@ let docs =
+       \032         filesystems on a file.\n\
+       \032  logfile xxx\n\
+       \032         By default, logging messages will be appended to the file\n\
+-      \032         unison.log in your HOME directory. Set this preference if you\n\
++      \032         unison.log in your .unison directory. Set this preference if you\n\
+       \032         prefer another file.\n\
+       \032  maxbackups n\n\
+       \032         This preference specifies the number of backup versions that\n\
+diff -urNad unison-2.32.52~/ubase/trace.ml unison-2.32.52/ubase/trace.ml
+--- unison-2.32.52/ubase/trace.ml
++++ unison-2.32.52/ubase/trace.ml
+@@ -113,10 +113,10 @@ let logging =
+ 
+ let logfile =
+   Prefs.createString "logfile"
+-    (Util.fileInHomeDir "unison.log")
++    (Util.fileInHomeDir ".unison/unison.log")
+     "!logfile name"
+     "By default, logging messages will be appended to the file
+-     \\verb|unison.log| in your HOME directory.  Set this preference if
++     \\verb|unison.log| in your .unison directory.  Set this preference if
+      you prefer another file."
+ 
+ let logch = ref None
+

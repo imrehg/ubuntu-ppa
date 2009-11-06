@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+update-alternatives --install /usr/bin/unison unison /usr/bin/@UNISON_ALTERNATIVE@ @PRIORITY@ \
+  --slave /usr/share/man/man1/unison.1.gz unison.1.gz /usr/share/man/man1/@UNISON_ALTERNATIVE@.1.gz 
+
+#DEBHELPER#

@@ -1,0 +1,4 @@
+debian/@UNISON_GTK_PACKAGE@.xpm     /usr/share/pixmaps/
+debian/@UNISON_GTK_PACKAGE@.svg     /usr/share/pixmaps/
+@UNISON_GTK@                        /usr/bin/
+debian/@UNISON_GTK_PACKAGE@.desktop /usr/share/applications/

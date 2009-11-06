@@ -1,0 +1,177 @@
+#!/usr/bin/make -f
+# debian/rules for unison package
+# Copyright (C) 2006-2009 Sylvain Le Gall <gildor@debian.org>
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
+# MA 02110-1301, USA.
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/rules/dpatch.mk
+include /usr/share/cdbs/1/rules/ocaml.mk
+
+VERSION=$(DEB_UPSTREAM_VERSION)
+# version used with addversionno in unison
+VERSIONNO=$(shell echo $(VERSION) | cut -f 1-2 -d .)
+
+ifeq ($(DEB_SOURCE_PACKAGE),unison)
+# latest package
+PACKAGE_VERSION=
+PRIORITY=20
+# unison-gtk can replaced unison
+PRIORITY_GTK=15
+else
+# compatibility package
+PACKAGE_VERSION=$(VERSION)
+PRIORITY=10
+PRIORITY_GTK=5
+endif
+
+UNISON=unison-$(VERSION)
+UNISON_MAJ=UNISON-$(VERSION)
+UNISON_PACKAGE=unison$(PACKAGE_VERSION)
+UNISON_ALTERNATIVE=$(if $(PACKAGE_VERSION),$(UNISON),unison-latest-stable)
+UNISON_VERSIONNO=unison-$(VERSIONNO)
+
+UNISON_GTK=unison-$(VERSION)-gtk
+UNISON_GTK_PACKAGE=$(UNISON_PACKAGE)-gtk
+UNISON_GTK_ALTERNATIVE=$(if $(PACKAGE_VERSION),$(UNISON_GTK),unison-latest-stable-gtk)
+UNISON_GTK_VERSIONNO=unison-$(VERSIONNO)-gtk
+
+RENAME := debian/unison.1.in 
+RENAME += debian/unison.dirs.in 
+RENAME += debian/unison.doc-base.in
+RENAME += debian/unison.postinst.in
+RENAME += debian/unison.prerm.in
+RENAME += debian/unison.preinst.in
+RENAME += debian/unison.manpages.in
+RENAME += debian/unison-gtk.dirs.in
+RENAME += debian/unison-gtk.menu.in
+RENAME += debian/unison-gtk.postinst.in
+RENAME += debian/unison-gtk.prerm.in
+RENAME += debian/unison-gtk.preinst.in
+RENAME += debian/unison-gtk.manpages.in
+RENAME += debian/unison-gtk.svg.in
+RENAME += debian/unison-gtk.install.in
+RENAME += debian/unison.install.in
+RENAME += debian/unison-gtk.links.in
+RENAME += debian/unison.links.in
+RENAME += debian/unison-gtk.desktop.in
+
+MY_MAKE_FLAGS += $(shell if test -x /usr/bin/ocamlopt.opt; then echo "OCAMLOPT=ocamlopt.opt"; fi )
+
+ifeq ($(OCAML_HAVE_OCAMLOPT),yes)
+  NATIVE := true
+  DEB_DH_GENCONTROL_ARGS += -VF:OCamlInterpreter=""
+else
+  NATIVE := false
+  DEB_DH_GENCONTROL_ARGS += -VF:OCamlInterpreter="ocaml-base-$(OCAML_ABI)"
+  DEB_STRIP_EXCLUDE := $(UNISON) $(UNISON_GTK)
+endif
+
+UISTYLE := $(shell dpkg --compare-versions 2.10 ge $(VERSION) && echo gtk || echo gtk2)
+
+DEB_INSTALL_DOCS_ALL := BUGS.txt TODO.txt unison-manual.txt -X unison.doc-base.in
+
+DEB_INSTALL_CHANGELOGS_ALL := NEWS 
+
+#
+# Build unison
+#
+ 
+configure::
+	cp config/Makefile.unix config/Makefile
+
+build/$(UNISON_PACKAGE)::
+	$(MAKE) UISTYLE=text NATIVE=$(NATIVE) $(MY_MAKE_FLAGS) CFLAGS=
+	mv '$(CURDIR)/unison' '$(CURDIR)/$(UNISON)'
+	env HOME='$(CURDIR)' '$(CURDIR)/$(UNISON)' -doc all > '$(CURDIR)/unison-manual.txt'
+
+build/$(UNISON_GTK_PACKAGE):: debian/$(UNISON_GTK_PACKAGE).xpm
+	$(MAKE) UISTYLE=$(UISTYLE) NATIVE=$(NATIVE) $(MY_MAKE_FLAGS) CFLAGS=
+	mv '$(CURDIR)/unison' '$(CURDIR)/$(UNISON_GTK)'
+	if test 'x$(OCAML_HAVE_OCAMLOPT)' = 'xyes'; then /usr/bin/chrpath -d '$(CURDIR)/$(UNISON_GTK)'; fi
+
+clean::
+	-$(RM) '$(CURDIR)/unison-manual.txt'
+	-$(RM) '$(CURDIR)/$(UNISON_GTK)'
+	-$(RM) '$(CURDIR)/$(UNISON)'
+	$(MAKE) clean
+
+binary-install/$(UNISON_GTK_PACKAGE)::
+	dh_desktop -p$(UNISON_GTK_PACKAGE)
+
+#
+# Unison icons
+#
+
+
+debian/$(UNISON_GTK_PACKAGE).png: debian/unison-gtk.svg.in
+	 rsvg -f png -w 32 -h 32 $^ $@
+
+debian/$(UNISON_GTK_PACKAGE).xpm: debian/$(UNISON_GTK_PACKAGE).png
+	convert $^ $@
+
+clean::
+	-$(RM) '$(CURDIR)/debian/$(UNISON_GTK_PACKAGE).png'
+	-$(RM) '$(CURDIR)/debian/$(UNISON_GTK_PACKAGE).xpm'
+
+#
+# Rename and substitute files
+#
+
+unison-rename: unison-rename-stamp
+unison-rename-stamp:	
+	# Rename all the debhelper files needed and substitue the @XXX@
+	# string
+	for i in $(RENAME); do \
+	  DST=`echo $$i | sed -e "s/unison/${UNISON_PACKAGE}/" -e "s/\\.in\\$$//"`; \
+	  sed \
+	    -e "s/@VERSION@/$(VERSION)/g"                               \
+	    -e "s/@PACKAGE_VERSION@/$(PACKAGE_VERSION)/g"               \
+	    -e "s/@PRIORITY@/$(PRIORITY)/g"                             \
+	    -e "s/@PRIORITY_GTK@/$(PRIORITY_GTK)/g"                     \
+	    -e "s/@UNISON@/$(UNISON)/g"                                 \
+	    -e "s/@UNISON_MAJ@/$(UNISON_MAJ)/g"                         \
+	    -e "s/@UNISON_PACKAGE@/$(UNISON_PACKAGE)/g"                 \
+	    -e "s/@UNISON_ALTERNATIVE@/$(UNISON_ALTERNATIVE)/g"         \
+	    -e "s/@UNISON_VERSIONNO@/$(UNISON_VERSIONNO)/g"             \
+	    -e "s/@UNISON_GTK@/$(UNISON_GTK)/g"                         \
+	    -e "s/@UNISON_GTK_PACKAGE@/$(UNISON_GTK_PACKAGE)/g"         \
+	    -e "s/@UNISON_GTK_ALTERNATIVE@/$(UNISON_GTK_ALTERNATIVE)/g" \
+	    -e "s/@UNISON_GTK_VERSIONNO@/$(UNISON_GTK_VERSIONNO)/g"     \
+	    "$$i" > "$(CURDIR)/$$DST"; \
+	done
+	
+	# We always need to rename the manual 
+	cp '$(CURDIR)/debian/$(UNISON_PACKAGE).1' '$(CURDIR)/debian/$(UNISON).1'
+	# We copy unison.1 to unison-gtk.1
+	cp '$(CURDIR)/debian/$(UNISON).1' '$(CURDIR)/debian/$(UNISON_GTK).1'
+	
+	touch $@
+
+.PHONY: unison-rename
+
+common-binary-indep:: unison-rename
+common-binary-arch:: unison-rename
+
+clean::
+	# Remove the renamed files
+	-for i in $(RENAME); do \
+	  DST=`echo $$i | sed -e "s/unison/${UNISON_PACKAGE}/" -e "s/\\.in\\$$//"`; \
+	  $(RM) "$(CURDIR)/$$DST"; \
+	done
+	-$(RM) '$(CURDIR)/debian/$(UNISON).1' 
+	-$(RM) '$(CURDIR)/debian/$(UNISON_GTK).1'
+	-$(RM) '$(CURDIR)/unison-rename-stamp'
