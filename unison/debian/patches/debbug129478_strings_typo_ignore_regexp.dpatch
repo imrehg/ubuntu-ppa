@@ -1,0 +1,19 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## debbug129478_strings_typo_ignore_regexp.dpatch by Lucas B. Cohen <lucas.cohen@free.fr>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: No description.
+
+@DPATCH@
+diff -urNad unison-2.27.57~/strings.ml unison-2.27.57/strings.ml
+--- unison-2.27.57~/strings.ml	2008-01-19 16:23:01.000000000 +0100
++++ unison-2.27.57/strings.ml	2008-04-23 02:01:31.000000000 +0200
+@@ -3722,7 +3722,7 @@
+       \032      changed. Instead of putting a line of the form\n\
+       \032                ignore = <regexp>\n\
+       \032      in your profile (.unison/default.prf), you should put:\n\
+-      \032                ignore = Regexp <regexp>\n\
++      \032                ignore = Regex <regexp>\n\
+       \032      Moreover, two other styles of pattern are also recognized:\n\
+       \032                ignore = Name <name>\n\
+       \032      matches any path in which one component matches <name>, while\n\

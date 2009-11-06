@@ -1,0 +1,4 @@
+usr/bin/@UNISON_GTK@                 usr/bin/@UNISON_GTK_ALTERNATIVE@ 
+usr/bin/@UNISON_GTK@                 usr/bin/@UNISON_GTK_VERSIONNO@ 
+usr/share/man/man1/@UNISON_GTK@.1.gz usr/share/man/man1/@UNISON_GTK_ALTERNATIVE@.1.gz 
+usr/share/man/man1/@UNISON_GTK@.1.gz usr/share/man/man1/@UNISON_GTK_VERSIONNO@.1.gz 

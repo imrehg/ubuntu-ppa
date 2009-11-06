@@ -1,0 +1,19 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## debbug466173_strings_typo_follw.dpatch by Lucas B. Cohen <lucas.cohen@free.fr>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: No description.
+
+@DPATCH@
+diff -urNad unison-2.27.57~/strings.ml unison-2.27.57/strings.ml
+--- unison-2.27.57~/strings.ml	2008-01-19 16:23:01.000000000 +0100
++++ unison-2.27.57/strings.ml	2008-04-23 01:22:17.000000000 +0200
+@@ -405,7 +405,7 @@
+       \n\
+       \032  indicates that the file c has been modified only in the second\n\
+       \032  replica, and that the default action is therefore to propagate the new\n\
+-      \032  version to the first replica. To follw Unison's recommendation, press\n\
++      \032  version to the first replica. To follow Unison's recommendation, press\n\
+       \032  the \"f\" at the prompt.\n\
+       \n\
+       \032  If both replicas are modified and their contents are different, then\n\

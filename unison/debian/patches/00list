@@ -1,0 +1,4 @@
+change-logfile-location.dpatch
+debbug129478_strings_typo_ignore_regexp
+debbug137960_strings_obsolete_ssh_info
+debbug466173_strings_typo_follw
