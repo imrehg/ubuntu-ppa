@@ -27,7 +27,7 @@ the unison-gtk package.
 #----------------------------#
 
 This package has been split when Unison 2.10.2 was released. 
-There now exist 3 versions of the package : 
+There now exist versions of the package : 
 - unison, unison-gtk (version 2.27)
 - unison2.13.16, unison2.13.16 (version 2.13.16)
 - unison2.9.1, unison2.9.1-gtk (version 2.9.1)
@@ -52,8 +52,7 @@ system using unison (the good version of unison).
 This scheme continue to apply further (unison 2.13.16 was released in unison
 package and unison2.9.1 was keep in Etch/Sid while Sarge was stable). 
 
-Etch has been released with unison 2.13.16, so unison2.9.1 has been removed.
-Lenny has been released with unison 2.27.57, so unison2.13.16 has been removed.
+Etch is now released with unison 2.13.16, so unison2.9.1 will be removed.
 
  -- Sylvain Le Gall <gildor@debian.org>  Mon, 25 Apr 2005 23:06:44 +0200  
 

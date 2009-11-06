@@ -1,33 +1,8 @@
 unison (2.32.52-1ubuntu1~ppa1~jaunty) jaunty; urgency=low
 
-  * Update official ubuntu package to the newer stable version
+  * Update official package to a newer stable version
 
- -- Gergely Imreh <imrehg@gmail.com>  Fri, 06 Nov 2009 10:23:05 +0800
-
-unison (2.27.57-2ubuntu1) karmic; urgency=low
-
-  * Merge from debian unstable (LP: #377652), remaining changes:
-    - Change default logfile directory to .unison by prepending
-      .unison to name of logfile in ubase/trace.ml. For this reason
-      debian/patches/00list still include change-logfile-location
-
- -- Andreas Olsson <andol@ubuntu.com>  Mon, 03 Aug 2009 20:32:54 +0200
-
-unison (2.27.57-2) unstable; urgency=low
-
-  * Correct typo in documentation, thanks to Lucas B. Cohen 
-    (Closes: #137960, #129478, #466173)
-  * Switch packaging to git
-  * Set maintainer to Debian OCaml Maintainers
-  * Add dh-ocaml build-dependency (rules/ocaml.mk)
-  * Upgrade debian/compat to 7
-  * Upgrade Standards-Version to 3.8.0 (debian/README.source)
-  * Add ${misc:Depends} to dependencies
-  * Update debian/copyright file to use
-    http://wiki.debian.org/Proposals/CopyrightFormat
-  * Remove obsolete debian/control.in related variables and files
-
- -- Sylvain Le Gall <gildor@debian.org>  Thu, 05 Mar 2009 12:10:11 +0100
+ -- Gergely Imreh <imrehg@gmail.com>  Fri, 06 Nov 2009 13:06:44 +0800
 
 unison (2.27.57-1ubuntu1) intrepid; urgency=low
 
@@ -323,4 +298,3 @@ unison (1.180-1) unstable; urgency=low
   * Initial release.
 
  -- Sven LUTHER <luther@debian.org>  Tue, 21 Dec 1999 12:15:49 +0100
-

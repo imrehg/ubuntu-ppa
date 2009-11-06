@@ -1,26 +1,17 @@
 Source: unison
 Section: utils
 Priority: optional
-Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
-XSBC-Original-Maintainer: Debian OCaml Maintainers <debian-ocaml-maint@lists.debian.org>
-Uploaders: Sylvain Le Gall <gildor@debian.org>
-Build-Depends: cdbs (>= 0.4.23), 
- debhelper (>= 7), 
- dpatch, 
- ocaml-nox (>= 3.10.0-8), 
- liblablgtk2-ocaml-dev (>= 2.12.0-2), 
- chrpath, 
- librsvg2-bin (>= 2.18.2), 
- imagemagick,
- dh-ocaml (>= 0.4.1)
-Standards-Version: 3.8.0
-Vcs-Git: git://git.debian.org/git/pkg-ocaml-maint/packages/unison.git
-Vcs-Browser: http://git.debian.org/?p=pkg-ocaml-maint/packages/unison.git
+Maintainer: Ubuntu MOTU Developers <ubuntu-motu@lists.ubuntu.com>
+XSBC-Original-Maintainer: Sylvain Le Gall <gildor@debian.org>
+Build-Depends: cdbs (>= 0.4.23), debhelper (>= 5), dpatch, ocaml-nox (>= 3.10.0-8), liblablgtk2-ocaml-dev (>= 2.6.0-13), chrpath, librsvg2-bin (>= 2.18.2), imagemagick
+Standards-Version: 3.7.3
+Vcs-Svn: svn://svn.debian.org/svn/pkg-ocaml-maint/trunk/packages/unison/trunk
+Vcs-Browser: http://svn.debian.org/wsvn/pkg-ocaml-maint/trunk/packages/unison/trunk/
 Homepage: http://www.cis.upenn.edu/~bcpierce/unison/
 
 Package: unison
 Architecture: any
-Depends: ${shlibs:Depends}, ${F:OCamlInterpreter}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${F:OCamlInterpreter}
 Recommends: ssh-client | openssh-client
 Conflicts: unison (<< 2.9.1-3)
 Description: A file-synchronization tool for Unix and Windows
@@ -45,7 +36,7 @@ Description: A file-synchronization tool for Unix and Windows
 
 Package: unison-gtk
 Architecture: any
-Depends: ${shlibs:Depends}, ${F:OCamlInterpreter}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${F:OCamlInterpreter}
 Conflicts: unison-gtk (<< 2.9.1-3)
 Recommends: ssh-askpass, ssh-client | openssh-client
 Description: A file-synchronization tool for Unix and Windows with GTK+ interface
