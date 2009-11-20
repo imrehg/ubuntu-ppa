@@ -1,0 +1,5 @@
+ulipad (3.9-0ubuntu1~ppa1) unstable; urgency=low
+
+  * Initial packaging for Ubuntu
+
+ -- Gergely Imreh <imrehg@gmail.com>  Fri, 20 Nov 2009 16:50:00 +0800

@@ -1,0 +1,20 @@
+Source: ulipad
+Section: devel
+Priority: optional
+Maintainer: Gergely Imreh <imrehg@gmail.com>
+Build-Depends: debhelper (>= 7),
+Build-Depends-Indep: python-support (>= 0.6.0)
+Standards-Version: 3.8.1
+Homepage: http://code.google.com/p/ulipad/
+
+Package: ulipad
+Architecture: all
+XB-Python-Version: >= 2.5
+Depends: ${python:Depends}, python-wxgtk2.8, ${misc:Depends}
+Description: Python editor based on wxPython
+  Ulipad is a wxPython powered, programmer oriented and flexible editor.
+  It has many features such as class browser, code auto-complete, html viewer,
+  directory browser, wizard and many others. The most interesting and
+  distinctive feature is the use of mixin technique which makes Ulipad an
+  easy-to-extend programming environment. You can write your own mixins, plugins
+  or simple scripts, and all of them can be integrated in Ulipad in a seamless way.

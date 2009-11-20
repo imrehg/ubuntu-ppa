@@ -1,0 +1,47 @@
+#!/usr/bin/make -f
+
+#!/usr/bin/make -f
+#export DH_VERBOSE=1
+
+#binary-install/exaile::
+#	dh_pysupport -pulipad
+
+PACKAGE := $(shell dpkg-parsechangelog | sed -n 's/^Source: //p')
+VERSION := $(shell dpkg-parsechangelog | sed -ne 's/^Version: \(.*\)-.*/\1/p')
+
+get-orig-source:
+	rm -rf $@
+	mkdir -p $@/$(PACKAGE)-$(VERSION)
+	cd $@ && wget http://ulipad.googlecode.com/files/ulipad.$(VERSION).zip
+	unzip -o $@/ulipad.$(VERSION).zip -d $@/$(PACKAGE)-$(VERSION)
+	cd $@ && tar -cf - $(PACKAGE)-$(VERSION) | gzip -9f - > ../../$(PACKAGE)_$(VERSION).orig.tar.gz
+	rm -r $@
+
+install: dh_testdir
+	dh_testroot
+	dh_installdirs
+
+	# Add here commands to install the package into debian/scribes.
+	cp * $(CURDIR)/debian/ulipad
+
+# Build architecture-independent files here.
+binary-indep: dh_testdir
+	dh_testroot
+	dh_installchangelog ChangeLog.txt
+	dh_installdocs
+	dh_installmenu
+	dh_install
+	dh_desktop
+	dh_icons
+	dh_compress
+	dh_fixperms
+	dh_pycentral
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+# Build architecture-dependent files here.
+binary-arch: install
+
+.PHONEY: build clean checkroot
