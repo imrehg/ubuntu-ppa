@@ -1,4 +1,4 @@
-pyroom (0.4.1-1ubuntu0~ppa1) unstable; urgency=low
+pyroom (0.4.1-1ubuntu0~ppa1) karmic; urgency=low
 
   * debian/patches/04_locales_fix.dpatch:
     + Backport of fix crash on load due to incorrect locales handling
