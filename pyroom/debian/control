@@ -1,0 +1,19 @@
+Source: pyroom
+Section: editors
+Priority: optional
+Maintainer: Kartik Mistry <kartik@debian.org>
+Build-Depends: debhelper (>= 7), dpatch, python (>= 2.4)
+Build-Depends-Indep: gettext, python-central (>= 0.6)
+XS-Python-Version: >= 2.4
+Standards-Version: 3.8.1
+Homepage: http://pyroom.org/
+
+Package: pyroom
+Architecture: all
+Depends: ${python:Depends}, ${misc:Depends}, python-glade2, python-gtk2, python-xdg
+XB-Python-Version: ${python:Versions}
+Description: distractionless fullscreen text editor
+ PyRoom is a free editor that stays out your way - and keeps other things out
+ of your way, too. As a fullscreen editor without buttons, widgets, formatting
+ options, menus and with only the minimum of required dialog windows, it
+ doesn't have any distractions and lets you focus on writing and only writing.

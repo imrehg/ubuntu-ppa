@@ -1,0 +1,64 @@
+pyroom (0.4.1-1ubuntu0~ppa1) unstable; urgency=low
+
+  * debian/patches/04_locales_fix.dpatch:
+    + Backport of fix crash on load due to incorrect locales handling
+
+ -- Gergely Imreh <imrehg@gmail.com>  Wed, 25 Nov 2009 14:56:34 +0800
+
+pyroom (0.4.1-1) unstable; urgency=low
+
+  * New upstream release
+  * debian/control:
+    + Added Build-Depends on gettext
+    + Removed Depends on python-gtksourceview2
+    + Updated to Standards-Version 3.8.1 (no changes needed)
+  * debian/patches/02_setup_file_fix.dpatch:
+    + Updated for upstream changes in setup.py
+  * debian/patches/03_locales_installation.dpatch:
+    + Added patch to fix locales installation problem, Thanks to
+      Florian Heinle <florian@planet-tiax.de> for patch
+
+ -- Kartik Mistry <kartik@debian.org>  Sat, 18 Apr 2009 11:51:07 +0530
+
+pyroom (0.3.2-3) unstable; urgency=low
+
+  * debian/copyright:
+    + [Lintian] use of correct copyright symbol © instead of (C)
+    + Updated Debian package copyright year
+  * debian/rules:
+    + [Lintian] used dh_prep instead of deprecated dh_clean
+
+ -- Kartik Mistry <kartik@debian.org>  Mon, 16 Feb 2009 10:01:54 +0530
+
+pyroom (0.3.2-2) unstable; urgency=low
+
+  * debian/control:
+    + Added missing dependency on python-xdg, Thanks to
+      stefano karapetsas <stefano@karapetsas.net> (Closes: #509884)
+
+ -- Kartik Mistry <kartik@debian.org>  Sat, 27 Dec 2008 21:40:01 +0530
+
+pyroom (0.3.2-1) unstable; urgency=low
+
+  * New upstream release:
+  * debian/control:
+    + Fixed too broad dependencies, Thanks to Anthony L. Awtrey
+      <tony@awtrey.com> (Closes: #507680)
+    + Dropped build-depends on python-setuptools, Upstream is using
+      distutils, Thanks to Florian Heinle for pointing this
+  * debian/patches/01_manpage_typo_fix.dpatch:
+    + Dropped patch, Merged with upstream
+
+ -- Kartik Mistry <kartik@debian.org>  Thu, 04 Dec 2008 17:22:47 +0530
+
+pyroom (0.3.1.1-1) unstable; urgency=low
+
+  * Initial release (Closes: #498765)
+  * Packaging based on Ubuntu package by Florian Heinle
+    <florian@planet-tiax.de>, Thanks!
+  * debian/patches/01_manpage_typo_fix.dpatch:
+    + Added patch to fix small typo in manpage
+  * debian/patches/02_setup_file_fix.dpatch:
+    + Added patch to fix data files in setup.py
+
+ -- Kartik Mistry <kartik@debian.org>  Mon, 22 Sep 2008 21:29:18 +0530

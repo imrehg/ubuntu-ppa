@@ -1,0 +1,7 @@
+PyRoom source for Debian
+-------------------------
+
+This package uses the `dpatch' patch management solution. See
+/usr/share/doc/dpatch/README.source.gz.
+
+ -- Gergely Imreh <imrehg@gmail.com> Wed, 25 Nov 2009 14:56:34 +0800

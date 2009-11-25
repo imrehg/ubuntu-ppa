@@ -1,0 +1,2 @@
+?package(pyroom):needs="X11" section="Applications/Editors"\
+  title="pyroom" command="/usr/bin/pyroom"

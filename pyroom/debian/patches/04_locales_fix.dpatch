@@ -1,0 +1,17 @@
+#!/bin/sh /usr/share/dpatch/dpatch-run
+## 03_locales_fix.dpatch by Gergely Imreh <imrehg@gmail.com>
+##
+## DP: locales load fix based on http://bazaar.launchpad.net/~pyroom-dev/pyroom/0.4/revision/186
+
+@DPATCH@
+--- pyroom-0.4.1/PyRoom/__init__.py.old	2009-04-06 16:32:56.000000000 +0800
++++ pyroom-0.4.1/PyRoom/__init__.py	2009-11-25 14:51:09.000000000 +0800
+@@ -23,7 +23,7 @@
+     languages_used = [lc]
+ lang_in_env = os.environ.get('LANGUAGE', None)
+ if lang_in_env:
+-    languages_used.append(lang_in_env.split())
++    languages_used.extend(lang_in_env.split())
+ 
+ for module in gettext, glade:
+     module.bindtextdomain(GETTEXT_DOMAIN, LOCALE_PATH)

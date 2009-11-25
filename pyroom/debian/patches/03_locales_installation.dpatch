@@ -1,0 +1,18 @@
+#!/bin/sh /usr/share/dpatch/dpatch-run
+## 03_locales_installation.dpatch by Florian Heinle <florian@planet-tiax.de>
+##
+## DP: install locales to correct path in debian packaging
+
+@DPATCH@
+diff -urNad pyroom-0.4.1~/setup.py pyroom-0.4.1/setup.py
+--- pyroom-0.4.1~/setup.py	2009-04-02 14:38:25.000000000 +0200
++++ pyroom-0.4.1/setup.py	2009-04-02 14:44:25.000000000 +0200
+@@ -11,7 +11,7 @@
+ url = 'http://www.pyroom.org'
+ 
+ PO_DIR = 'locales'
+-MO_DIR = os.path.join('build', 'locales')
++MO_DIR = os.path.join('debian', 'pyroom', 'usr', 'share', 'locale')
+ 
+ for po in glob.glob(os.path.join(PO_DIR, '*.po')):
+     lang = os.path.basename(po[:-3])[7:]

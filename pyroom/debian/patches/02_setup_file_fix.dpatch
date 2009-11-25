@@ -1,0 +1,21 @@
+#!/bin/sh /usr/share/dpatch/dpatch-run
+## 02_setup_file_fix.dpatch by Kartik Mistry <kartik@debian.org>
+##
+## DP: Patch to fix installation of data files in setup.py
+
+@DPATCH@
+
+--- pyroom-0.3.1.1.orig/setup.py	2008-09-23 12:10:13.000000000 +0530
++++ pyroom-0.3.1.1/setup.py	2008-09-23 12:10:23.000000000 +0530
+@@ -51,11 +51,6 @@
+   description = 'PyRoom is a distraction-free, fullscreen text editor',
+   packages = ['PyRoom',],
+   package_data = {'PyRoom':['interface.glade']},
+-  data_files = [
+-    ('/usr/share/pyroom/themes', glob.glob('themes/*.theme')),
+-    ('/usr/share/pyroom', ['pyroom.png']),
+-    ('/usr/share/applications', ['pyroom.desktop'])
+-    ],
+   scripts=['pyroom',],
+   cmdclass={'install_data': InstallData},
+ )

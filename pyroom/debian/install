@@ -1,0 +1,3 @@
+themes/*.theme usr/share/pyroom/themes
+pyroom.png usr/share/pyroom
+pyroom.desktop usr/share/applications
